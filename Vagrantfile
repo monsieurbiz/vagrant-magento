@@ -2,6 +2,7 @@
 # vi: set ft=ruby :
 
 hostname = "vagrant-mage.dev"
+virtualbox_ip = "10.0.0.15";
 
 VAGRANTFILE_API_VERSION = "2"
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
@@ -29,6 +30,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # Customize VM
     virtualbox.customize ["modifyvm", :id, "--memory", "1024", "--cpus", "1", "--pae", "on", "--hwvirtex", "on", "--ioapic", "on"]
 
+    # Network
+    override.vm.network :private_network, ip: virtualbox_ip
+
   end
 
   # Network
@@ -40,10 +44,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.hostname                    = hostname
 
   # Synced folders
-  config.vm.synced_folder "htdocs", "/var/www/magento"
-  # config.vm.synced_folder "htdocs", "/var/www/magento", nfs: true,
-  #                                   mount_options: ["nolock", "async"],
-  #                                   bsd__nfs_options: ["alldirs","async","nolock"]
+  # config.vm.synced_folder "", "/vagrant"
+  config.vm.synced_folder "", "/vagrant", nfs: true,
+                                    mount_options: ["nolock", "async"],
+                                    bsd__nfs_options: ["alldirs","async","nolock"]
+  # config.vm.synced_folder "htdocs", "/var/www/magento"
+  config.vm.synced_folder "htdocs", "/var/www/magento", nfs: true,
+                                    mount_options: ["nolock", "async"],
+                                    bsd__nfs_options: ["alldirs","async","nolock"]
 
   # "Provision" with hostmanager
   config.vm.provision :hostmanager
