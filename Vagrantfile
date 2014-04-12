@@ -18,6 +18,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vmware.vmx["memsize"] = "1024"
     vmware.vmx["numvcpus"] = "1"
 
+    # Network
+    vmware.vmx["ethernet1.present"] = "TRUE"
+    vmware.vmx["ethernet1.connectionType"] = "hostonly"
+    vmware.vmx["ethernet1.virtualDev"] = "e1000"
+    vmware.vmx["ethernet1.wakeOnPcktRcv"] = "FALSE"
+    vmware.vmx["ethernet1.addressType"] = "generated"
+
   end
 
   # Virtualbox customization
