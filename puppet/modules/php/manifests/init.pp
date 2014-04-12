@@ -29,7 +29,7 @@ class php () {
     ]
     package { $modules :
         ensure  => latest,
-        require => [ Package['php5'], Class['server'], Package['apache2'], Package['mysql-server'] ],
+        require => [ Package['php5'], Class['server'], Package['apache2'], Package['mysql-server-5.6'] ],
     }
 
 }
