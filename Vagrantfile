@@ -84,3 +84,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
 end
+
+# Local file
+begin
+  load 'LocalVagrantfile.rb'
+rescue LoadError
+  # ignore
+end
