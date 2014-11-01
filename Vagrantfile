@@ -1,3 +1,6 @@
+#!/usr/bin/env ruby
+# ^ Syntax hint
+
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
