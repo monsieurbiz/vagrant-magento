@@ -17,7 +17,7 @@ class server ( $hostname ) {
     }
 
     # Few packages
-    $packages = ["curl", "tidy", "screen", "vim", "htop", "tmux"]
+    $packages = ["curl", "tidy", "screen", "vim", "htop", "tmux", "build-essential"]
     package { $packages:
         ensure  => latest,
         require => Exec['update'],
