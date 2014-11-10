@@ -37,12 +37,6 @@ class { "mysql":
 class { "php":
 }
 
-# Ioncube
-class { 'ps_ioncubeloader':
-    php_version         => "php54",
-    php_priority        => "10"
-}
-
 # Includes
 include server
 include apache
@@ -51,4 +45,4 @@ include php
 include mailcatcher
 include git
 include tools
-include ps_ioncubeloader
+
