@@ -34,8 +34,14 @@ class apache::install ( $server_name, $document_root, $logs_dir ) {
         creates => "/etc/apache2/ssl/${server::hostname}.key",
         notify  => Class['apache::service'],
     }
+    -> exec { "wildcard cert file certificate":
+        command => "openssl req -new -x509 -nodes -sha1 -key ${server::hostname}.key -out wildcard.${server::hostname}.cert -days 3650 -subj /CN=*.${server::hostname}",
+        cwd     => "/etc/apache2/ssl",
+        creates => "/etc/apache2/ssl/wildcard.${server::hostname}.cert",
+        notify  => Class['apache::service'],
+    }
     -> exec { "cert file certificate":
-        command => "openssl req -new -x509 -key ${server::hostname}.key -out ${server::hostname}.cert -days 3650 -subj /CN=${server::hostname}",
+        command => "openssl req -new -x509 -sha1 -key ${server::hostname}.key -out ${server::hostname}.cert -days 3650 -subj /CN=${server::hostname}",
         cwd     => "/etc/apache2/ssl",
         creates => "/etc/apache2/ssl/${server::hostname}.cert",
         notify  => Class['apache::service'],
