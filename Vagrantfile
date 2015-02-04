@@ -1,6 +1,3 @@
-#!/usr/bin/env ruby
-# ^ Syntax hint
-
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
@@ -46,11 +43,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   # Network
-  # config.vm.network :private_network, ip: "10.0.0.232"
   config.hostmanager.enabled            = true
   config.hostmanager.manage_host        = true
   config.hostmanager.ignore_private_ip  = false
   config.hostmanager.include_offline    = true
+  config.hostmanager.aliases            = "admin." + hostname
   config.vm.hostname                    = hostname
 
   # Synced folders
