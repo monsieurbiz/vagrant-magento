@@ -53,16 +53,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Synced folders
   # On OSX we use some tips to boost the nfs ;)
   if (/darwin/ =~ RUBY_PLATFORM)
-    web.vm.synced_folder "", "/vagrant", nfs: true,
+    config.vm.synced_folder "", "/vagrant", nfs: true,
       mount_options: ["nolock", "async"],
       bsd__nfs_options: ["alldirs","async","nolock"]
-    web.vm.synced_folder "", "/var/www/magento", nfs: true,
+    config.vm.synced_folder "", "/var/www/magento", nfs: true,
       mount_options: ["nolock", "async"],
       bsd__nfs_options: ["alldirs","async","nolock"]
   else
-    web.vm.synced_folder "", "/vagrant", nfs: true,
+    config.vm.synced_folder "", "/vagrant", nfs: true,
       mount_options: ["nolock", "async"]
-    web.vm.synced_folder "", "/var/www/magento", nfs: true,
+    config.vm.synced_folder "", "/var/www/magento", nfs: true,
       mount_options: ["nolock", "async"]
   end
 
