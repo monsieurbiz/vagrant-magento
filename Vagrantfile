@@ -11,8 +11,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provider :vmware_fusion do |vmware, override|
 
     # Which box?
-    override.vm.box = "debian-wheezy-fusion"
-    override.vm.box_url = "http://boxes.monsieurbiz.com/debian-wheezy-fusion.box"
+    override.vm.box = "puphpet/debian75-x64"
+    override.vm.box_url = "puphpet/debian75-x64"
 
     # Customize VM
     vmware.vmx["memsize"] = "1024"
@@ -51,14 +51,20 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.hostname                    = hostname
 
   # Synced folders
-  # config.vm.synced_folder "", "/vagrant"
-  config.vm.synced_folder "", "/vagrant", nfs: true,
-                                    mount_options: ["nolock", "async"],
-                                    bsd__nfs_options: ["alldirs","async","nolock"]
-  # config.vm.synced_folder "htdocs", "/var/www/magento"
-  config.vm.synced_folder "htdocs", "/var/www/magento", nfs: true,
-                                    mount_options: ["nolock", "async"],
-                                    bsd__nfs_options: ["alldirs","async","nolock"]
+  # On OSX we use some tips to boost the nfs ;)
+  if (/darwin/ =~ RUBY_PLATFORM)
+    web.vm.synced_folder "", "/vagrant", nfs: true,
+      mount_options: ["nolock", "async"],
+      bsd__nfs_options: ["alldirs","async","nolock"]
+    web.vm.synced_folder "", "/var/www/magento", nfs: true,
+      mount_options: ["nolock", "async"],
+      bsd__nfs_options: ["alldirs","async","nolock"]
+  else
+    web.vm.synced_folder "", "/vagrant", nfs: true,
+      mount_options: ["nolock", "async"]
+    web.vm.synced_folder "", "/var/www/magento", nfs: true,
+      mount_options: ["nolock", "async"]
+  end
 
   # "Provision" with hostmanager
   config.vm.provision :hostmanager
