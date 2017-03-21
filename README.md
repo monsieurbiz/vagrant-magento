@@ -1,5 +1,7 @@
 # Vagrantfile & Puppet manifests for Magento
 
+--**DEPRECATED**--
+
 ## Requirements
 
 You just need [Vagrant][vagrant] :)
